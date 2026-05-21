@@ -1,0 +1,195 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --guinda: #6B1A2A;
+  --guinda-dark: #4A0F1C;
+  --guinda-light: #8B2A3E;
+  --gold: #C9A84C;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-gray-50 text-gray-900;
+  }
+
+  /* Scrollbar institucional */
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #C9A8A8;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--guinda);
+  }
+}
+
+@layer components {
+  /* Botones */
+  .btn-primary {
+    @apply bg-guinda text-white px-4 py-2 rounded-lg text-sm font-medium
+           hover:bg-guinda-700 active:scale-95 transition-all duration-150
+           disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-gray-700 px-4 py-2 rounded-lg text-sm font-medium
+           border border-gray-200 hover:bg-gray-50 active:scale-95
+           transition-all duration-150 flex items-center gap-2;
+  }
+
+  .btn-ghost {
+    @apply text-gray-500 px-3 py-2 rounded-lg text-sm font-medium
+           hover:bg-gray-100 active:scale-95 transition-all duration-150
+           flex items-center gap-2;
+  }
+
+  /* Cards */
+  .card {
+    @apply bg-white rounded-xl border border-gray-100 shadow-sm;
+  }
+
+  .card-header {
+    @apply px-5 py-4 border-b border-gray-100 flex items-center justify-between;
+  }
+
+  .card-title {
+    @apply text-sm font-semibold text-gray-900;
+  }
+
+  /* Form inputs */
+  .form-input {
+    @apply w-full px-3 py-2 text-sm border border-gray-200 rounded-lg
+           bg-white text-gray-900 placeholder-gray-400
+           focus:outline-none focus:ring-2 focus:ring-guinda-300 focus:border-guinda-400
+           transition-colors duration-150;
+  }
+
+  .form-label {
+    @apply block text-xs font-medium text-gray-600 mb-1.5;
+  }
+
+  /* Badges */
+  .badge {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-medium;
+  }
+
+  /* Table */
+  .data-table {
+    @apply w-full text-sm;
+  }
+
+  .data-table thead th {
+    @apply px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide
+           bg-gray-50 border-b border-gray-100;
+  }
+
+  .data-table tbody td {
+    @apply px-4 py-3 border-b border-gray-50 text-gray-700;
+  }
+
+  .data-table tbody tr {
+    @apply hover:bg-guinda-50/30 transition-colors cursor-pointer;
+  }
+
+  .data-table tbody tr:last-child td {
+    @apply border-b-0;
+  }
+
+  /* Flujo visual */
+  .flow-node {
+    @apply flex flex-col items-center gap-2;
+  }
+
+  .flow-step {
+    @apply flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl
+           border-2 text-center cursor-pointer transition-all duration-200
+           min-w-[80px] text-xs font-medium;
+  }
+
+  .flow-step-pending {
+    @apply border-gray-200 bg-gray-50 text-gray-400;
+  }
+
+  .flow-step-active {
+    @apply border-guinda-500 bg-guinda-50 text-guinda-800 shadow-md shadow-guinda-100;
+  }
+
+  .flow-step-done {
+    @apply border-green-300 bg-green-50 text-green-800;
+  }
+
+  .flow-connector {
+    @apply flex-1 h-0.5 bg-gray-200 relative;
+  }
+
+  .flow-connector-done {
+    @apply bg-green-400;
+  }
+
+  /* Sidebar nav */
+  .nav-link {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm
+           text-white/65 hover:text-white hover:bg-white/10
+           transition-all duration-150 cursor-pointer;
+  }
+
+  .nav-link-active {
+    @apply text-gold bg-gold/10 border-l-2 border-gold;
+  }
+
+  /* Kanban */
+  .kanban-col {
+    @apply bg-gray-50 rounded-xl p-3 border border-gray-100 min-h-[300px];
+  }
+
+  .kanban-card {
+    @apply bg-white rounded-lg p-3 border border-gray-100 shadow-sm
+           cursor-pointer hover:shadow-md hover:border-guinda-200
+           transition-all duration-150 mb-2;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .bg-guinda-gradient {
+    background: linear-gradient(135deg, #4A0F1C 0%, #6B1A2A 50%, #8B2A3E 100%);
+  }
+
+  .bg-gold-gradient {
+    background: linear-gradient(135deg, #A07830 0%, #C9A84C 100%);
+  }
+
+  /* Animaciones */
+  .animate-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .stagger-1 { animation-delay: 0.05s; }
+  .stagger-2 { animation-delay: 0.1s; }
+  .stagger-3 { animation-delay: 0.15s; }
+  .stagger-4 { animation-delay: 0.2s; }
+}
