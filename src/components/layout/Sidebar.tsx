@@ -8,16 +8,24 @@ import { cn, getInitials } from '@/lib/utils'
 import type { Perfil } from '@/types'
 import {
   LayoutDashboard, FileText, ClipboardList, GitBranch,
-  BarChart2, FileStack, Users, Settings, LogOut, Plus,
+  BarChart2, FileStack, Users, LogOut, Plus,
   ChevronRight
 } from 'lucide-react'
 
-const NAV_ITEMS = [
+type NavLink = {
+  href: string
+  label: string
+  icon: React.ComponentType<{ size: number; className?: string }>
+  badge?: string
+  adminOnly?: boolean
+}
+
+const NAV_ITEMS: { section: string; links: NavLink[] }[] = [
   { section: 'Principal', links: [
     { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   ]},
   { section: 'Gestión documental', links: [
-    { href: '/oficios', label: 'Oficios', icon: FileText, badge: 'pendientes' },
+    { href: '/oficios', label: 'Oficios', icon: FileText },
     { href: '/instrucciones', label: 'Instrucciones', icon: ClipboardList },
     { href: '/oficios/nuevo', label: 'Nuevo oficio', icon: Plus },
   ]},
@@ -49,7 +57,6 @@ export default function Sidebar({ perfil }: { perfil: Perfil | null }) {
 
   return (
     <aside className="w-60 flex-shrink-0 flex flex-col bg-guinda-gradient border-r border-white/5 overflow-hidden">
-      {/* Logo */}
       <div className="px-4 py-5 border-b border-white/10">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-gold/20 border border-gold/30 flex items-center justify-center flex-shrink-0">
@@ -66,7 +73,6 @@ export default function Sidebar({ perfil }: { perfil: Perfil | null }) {
         </div>
       </div>
 
-      {/* Nav */}
       <nav className="flex-1 px-3 py-4 overflow-y-auto space-y-6">
         {NAV_ITEMS.map(group => (
           <div key={group.section}>
@@ -83,10 +89,7 @@ export default function Sidebar({ perfil }: { perfil: Perfil | null }) {
                     <Link
                       key={link.href}
                       href={link.href}
-                      className={cn(
-                        'nav-link',
-                        active && 'nav-link-active'
-                      )}
+                      className={cn('nav-link', active && 'nav-link-active')}
                     >
                       <Icon size={16} className="flex-shrink-0" />
                       <span className="flex-1 text-sm">{link.label}</span>
@@ -99,7 +102,6 @@ export default function Sidebar({ perfil }: { perfil: Perfil | null }) {
         ))}
       </nav>
 
-      {/* Footer user */}
       <div className="px-3 py-3 border-t border-white/10">
         <div className="flex items-center gap-2.5 px-2 py-2 rounded-lg hover:bg-white/5 transition-colors cursor-pointer group">
           <div className="w-8 h-8 rounded-lg bg-guinda-400 border border-white/20 flex items-center justify-center flex-shrink-0">
