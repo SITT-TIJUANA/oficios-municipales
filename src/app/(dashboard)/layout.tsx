@@ -1,22 +1,14 @@
-export const dynamic = 'force-dynamic'; 
+export const dynamic = 'force-dynamic'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
-import { getPerfil } from '@/lib/data/instrucciones'
 import Sidebar from '@/components/layout/Sidebar'
 import Topbar from '@/components/layout/Topbar'
 
-export default async function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-
   if (!user) redirect('/login')
-
-  const perfil = await getPerfil(user.id)
-
+  const { data: perfil } = await supabase.from('perfiles').select('*, departamento:departamento_id(id,nombre)').eq('id', user.id).maybeSingle()
   return (
     <div className="flex h-screen overflow-hidden bg-gray-50">
       <Sidebar perfil={perfil} />
