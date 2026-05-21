@@ -49,7 +49,7 @@ export async function crearInstruccion(
       comentarios: formData.comentarios || null,
     }])
     .select()
-    .single()
+    .maybeSingle()
 
   return { data: data as Instruccion | null, error: error?.message ?? null }
 }
@@ -73,7 +73,7 @@ export async function convertirInstruccionEnOficio(
     .from('instrucciones')
     .select('*')
     .eq('id', instruccionId)
-    .single()
+    .maybeSingle()
 
   if (!instruccion) return { numero_oficio: null, error: 'Instrucción no encontrada' }
 
@@ -95,7 +95,7 @@ export async function convertirInstruccionEnOficio(
       fecha_limite: instruccion.fecha_limite,
     }])
     .select()
-    .single()
+    .maybeSingle()
 
   if (ofError) return { numero_oficio: null, error: ofError.message }
 
@@ -128,7 +128,7 @@ export async function getPerfil(id: string): Promise<Perfil | null> {
     .from('perfiles')
     .select('*, departamento:departamento_id(id,nombre)')
     .eq('id', id)
-    .single()
+    .maybeSingle()
   return data as Perfil | null
 }
 
