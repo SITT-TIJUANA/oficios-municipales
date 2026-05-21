@@ -8,7 +8,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
-  const { data: perfil } = await supabase.from('perfiles').select('*, departamento:departamento_id(id,nombre)').eq('id', user.id).maybeSingle()
+  console.log('USER ID:', user?.id)
+  const { data: perfil, error } = await supabase.from('perfiles').select('*, departamento:departamento_id(id,nombre)').eq('id', user.id).maybeSingle()
+  console.log('PERFIL:', perfil, 'ERROR:', error)
   return (
     <div className="flex h-screen overflow-hidden bg-gray-50">
       <Sidebar perfil={perfil} />
